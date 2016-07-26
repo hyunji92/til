@@ -20,11 +20,12 @@ ListView 를 이용할 때 아주 기초적이고 정석적인 개념으로 사�
 
 2. 주요 클래스
   
-  Adapter – 기존 ListView 쓸때 사용하던 Adapter를 생각하세여. 데이터와 아이템에 대한 view 를 생성합니다.
-  ViewHolder – 재활용하는 View에 대한 서브뷰들 ?을 가지고 있는다.
-  LayoutManager – 아이템들을 배치한다.
-  ItemDecoration – 배치된 아이템 항목에서 서브뷰에 대한 처리하는 곳
-  ItemAnimation – 아이템들이 추가, 제거 될때 애니메이셔 처리를 하는것.
+  - Adapter – 기존 ListView 쓸때 사용하던 Adapter를 생각하세여.
+              데이터와 아이템에 대한 view 를 생성합니다.
+  - ViewHolder – 재활용하는 View에 대한 서브뷰들 ?을 가지고 있는다.
+  - LayoutManager – 아이템들을 배치한다.
+  - ItemDecoration – 배치된 아이템 항목에서 서브뷰에 대한 처리하는 곳
+  - ItemAnimation – 아이템들이 추가, 제거 될때 애니메이셔 처리를 하는것.
 
 
 3. 내가 알것들.
