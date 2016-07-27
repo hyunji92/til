@@ -31,12 +31,16 @@ ListView 를 이용할 때 아주 기초적이고 정석적인 개념으로 사�
 
 3. 내가 알것들.
 
-    1. `ViewHolder` 
+    1. `ViewHolder`  : 
         `ViewHolder`는 기존의 `ListView`에서 많이 사용하고 구글에서도 추천하는 패턴이다.
         하지만 이를 강제적으로? 제한 하지는 않았지만 `RecyclerView`에서 Adapter와 ViewHolder를 반듯이
         같이 사용할 수 밖에 없는 구조로 만들어져있다!
         `ViewHolder`를 많이 사용해 보지 않았다면 연습이 필요!!!!
-    2. `Adapter`
+    2. `LayoutManager` :
+         `LayoutManager` 는 RecyclerView 에서 가장 신기했던 부분
+         RecyclerView를 만들때 반드시 생성해야하는 것.이를 통해 
+         
+    3. `Adapter` : 
         `ListView`에서 `adapter`와 동일한 형태의 구조로 해당 아이템의 데이터와 뷰간의 처리를 한다.
         
 
