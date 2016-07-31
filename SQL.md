@@ -49,7 +49,6 @@ DESC {KUKEU};
 SHOW TABLES;
 ```
 
-
 ###테이블 삭제
 ```SQL
 DROP TABLE {KUKEU};
