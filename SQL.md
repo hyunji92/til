@@ -60,5 +60,9 @@ TRUNCATE {KUKEU};
 ```
 
 ##기본적인 CRUD Query
- 
- 
+###Create
+
+
+###Read
+###Update
+###Delete
