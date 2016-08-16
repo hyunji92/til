@@ -30,24 +30,25 @@ ListView 를 이용할 때 아주 기초적이고 정석적인 개념으로 사�
 
 ####3. 내가 알것들.
 
-    1. `ViewHolder`  : 
-        `ViewHolder`는 기존의 `ListView`에서 많이 사용하고 구글에서도 추천하는 패턴이다.
+   1. `ViewHolder`  : 
+      `ViewHolder`는 기존의 `ListView`에서 많이 사용하고 구글에서도 추천하는 패턴이다.
         하지만 이를 강제적으로? 제한 하지는 않았지만 `RecyclerView`에서 Adapter와 ViewHolder를 반듯이
         같이 사용할 수 밖에 없는 구조로 만들어져있다!
         `ViewHolder`를 많이 사용해 보지 않았다면 연습이 필요!!!!
-    2. `LayoutManager` :
+        
+   2. `LayoutManager` :
          `LayoutManager` 는 RecyclerView 에서 가장 신기했던 부분
          RecyclerView를 만들때 반드시 생성해야하는 것.이를 통해 모든 아이템 뷰의 레이아웃을 관린한다.
          수평이나 수직 배치뿐만아니라 그리드? 형태등 다양하게 레이아웃을 배치 할 수 있도록 되어있다.
          
          
-    3. `Adapter` : 
+   3. `Adapter` : 
         `ListView`에서 `adapter`와 동일한 형태의 구조로 해당 아이템의 데이터와 뷰간의 처리를 한다.
         다음과 같은 3가지 인터페이스를 구현 해야 한다.
-        - public listItemViewHolder onCreateViewHolder (ViewGroup parent, int Viewtype)
+       - public listItemViewHolder onCreateViewHolder (ViewGroup parent, int Viewtype)
         제너릭 형식의 변수로 ViewHolder를 생성한다
         
-        - public void onBindViewHolder (listItemViewHolder viewHolder, int position)
+       - public void onBindViewHolder (listItemViewHolder viewHolder, int position)
         만들어진 ViewHolder 에 listItem을 넣는 작업 , Listview의 getView()와 동일한 작업이다
         
         - public int getItemCount()
@@ -58,7 +59,7 @@ ListView 를 이용할 때 아주 기초적이고 정석적인 개념으로 사�
         
 ####4. 몰랐다!!!! ItemDecoration
 
-    - 각 아이템 항목 별로 오프셋을 추가하거나 아이템을 꾸미는 작업을 하게된다.
+   - 각 아이템 항목 별로 오프셋을 추가하거나 아이템을 꾸미는 작업을 하게된다.
      스크롤시 컨텐츠의 내용에 따라 View의 높이가 달라져 레이아웃의 위치를 이동해야 하는 작업하는 경우 여기에서 처리 하면된다.
      
      - public void onDraw(Canvas c, RecyclerView parent)
