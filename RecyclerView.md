@@ -37,7 +37,9 @@ ListView 를 이용할 때 아주 기초적이고 정석적인 개념으로 사�
         `ViewHolder`를 많이 사용해 보지 않았다면 연습이 필요!!!!
     2. `LayoutManager` :
          `LayoutManager` 는 RecyclerView 에서 가장 신기했던 부분
-         RecyclerView를 만들때 반드시 생성해야하는 것.이를 통해 
+         RecyclerView를 만들때 반드시 생성해야하는 것.이를 통해 모든 아이템 뷰의 레이아웃을 관린한다.
+         수평이나 수직 배치뿐만아니라 그리드? 형태등 다양하게 레이아웃을 배치 할 수 있도록 되어있다.
+         
          
     3. `Adapter` : 
         `ListView`에서 `adapter`와 동일한 형태의 구조로 해당 아이템의 데이터와 뷰간의 처리를 한다.
