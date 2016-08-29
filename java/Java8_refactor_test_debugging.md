@@ -61,6 +61,7 @@ int totalCalories = menu.stream().collect(summingInt(Dish::getCalories));
 
 - 스트림 API를 이용하면 무네를 더 직접적으로 기술 하고 병렬화 할 수 있다.
 
+
 ```java
 // 필터링 추출, 두가지 패턴의 명령형 코드를 쉽게 구현할 수 있따
 menu.parallelStream()
