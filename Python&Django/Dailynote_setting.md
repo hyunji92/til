@@ -23,6 +23,7 @@
 /Users/hyunji/dailynote
 
 - tree
+```
 .
 ├── dailynote
 │   ├── __init__.py
@@ -30,4 +31,7 @@
 │   ├── urls.py
 │   └── wsgi.py
 └── manage.py
+
+```
+
 
