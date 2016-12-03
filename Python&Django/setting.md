@@ -32,8 +32,9 @@ Zsh note: Modify your ~/.zshenv file instead of ~/.bash_profile.
 ```text
 Add pyenv init to your shell to enable shims and autocompletion. Please make sure eval "$(pyenv init -)" is placed toward the end of the shell configuration file since it manipulates PATH during the initialization.
 
-3. $ echo 'eval "$(pyenv init -)"' >> ~/.zshenv  - 이걸로 또해여.. 
 ```
+3. $ echo 'eval "$(pyenv init -)"' >> ~/.zshenv  - 이걸로 또해여.. 
+
 또 또 
 
 4. $ echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshenv - 이것을 하므로 마무리 해봅니다...
