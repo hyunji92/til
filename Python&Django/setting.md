@@ -27,12 +27,14 @@ Zsh note: Modify your ~/.zshenv file instead of ~/.bash_profile.
 저처럼 vim으로 들어가 수정하는 과오를 벌이지 마세요....
 
 또 
+
 2. $ echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshenv
 
 ```text
 Add pyenv init to your shell to enable shims and autocompletion. Please make sure eval "$(pyenv init -)" is placed toward the end of the shell configuration file since it manipulates PATH during the initialization.
 
 ```
+
 3. $ echo 'eval "$(pyenv init -)"' >> ~/.zshenv  - 이걸로 또해여.. 
 
 또 또 
