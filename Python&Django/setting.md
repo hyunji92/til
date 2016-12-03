@@ -38,8 +38,9 @@ $ pip install django - 장고 설치하세요.
 
 밑에와 같은 모습을 볼 수 있어여 ..
 
+```text
 (warp) 
-10:17:33  ✘  ~/warp  🐍 warp   master ✔ 
+10:17:33  ✘  ~/warp  /warp   master ✔ 
 $ ls 
 CONTRIBUTING.md    dev.yml            manage.py          setup.cfg
 CONTRIBUTORS.txt   docker-compose.yml package.json       utility
@@ -47,8 +48,9 @@ LICENSE            docs               presentation       warp
 README.rst         ebsetenv.py        pytest.ini
 compose            env.example        requirements
 config             gulpfile.js        requirements.txt
+```
 
-또 설피할거있어요 .
+또 설치할거있어요 .
 
 $ pip install -r requirements/local.txt - 설치하세요.
 
