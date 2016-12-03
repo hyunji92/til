@@ -6,8 +6,46 @@
 $ brew install pyenv -  install 을 해보세요
 
 그리고
-
 $ brew info pyenv - 해보세요
+
+자 인제 Shell 이 아직 안될꺼에요. 왜냐면 path가 안잡혔거등요.
+
+github 에 나오는 readme를 따라해 봅니다.
+```text
+Define environment variable PYENV_ROOT to point to the path where pyenv repo is cloned and add $PYENV_ROOT/bin to your $PATH for access to the pyenv command-line utility.
+
+$ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bash_profile
+$ echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bash_profile
+
+Zsh note: Modify your ~/.zshenv file instead of ~/.bash_profile.
+
+저는 `~/.zshenv` 이걸로 해써여 ~~~~
+```
+그렇다면 어떻게 하냐면
+
+1. $ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshenv - 이걸 그냥 쳐요.
+저처럼 vim으로 들어가 수정하는 과오를 벌이지 마세요....
+
+또 
+2. $ echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshenv
+
+```text
+Add pyenv init to your shell to enable shims and autocompletion. Please make sure eval "$(pyenv init -)" is placed toward the end of the shell configuration file since it manipulates PATH during the initialization.
+
+3. $ echo 'eval "$(pyenv init -)"' >> ~/.zshenv  - 이걸로 또해여.. 
+```
+또 또 
+
+4. $ echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.zshenv - 이것을 하므로 마무리 해봅니다...
+
+그렇다면 이제 path 가 됫으니 shell이 먹을 꺼에요 
+
+```text
+Restart your shell so the path changes take effect. You can now begin using pyenv.
+
+$ exec $SHELL  -  이거 해봅니다.
+```
+
 
 설치가 된것 같으면 
 
