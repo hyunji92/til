@@ -127,7 +127,83 @@ void setUncaughtExceptionHandler(Thread.UncaughtExceptionhandler handler);
 >스레드를 내부 클래스로 정의 하는대신 정적 내부클래스로 정의할 수 잇다
 >즉, 인스턴스 대신 클래스 객체안에서 정의가능!!!!!!! - 코드 필수 ㄴ마을미낭러미
 
-정적 내부클래스는 인스턴스 클래스가 아니라 외부 클래스의 클래스 객체에만 참조를 유지한다.
+정적 내부클래스는 인스턴스 클래스가 아니라  ( 외부 클래스의 클래스 객체에  ) == anyObject 만 참조를 유지한다.
 따, 라, 서 인스턴스 객체의 의해 할당된 메모리는 스레드 참조로 인해 발생하는 누수가 일어날 수 없다.
 
+###스레드 정의를 선택하는 방법 - 9장을 읽고 다시본다.
+> 내부 클래스는 외부 참조를 포함하므로 많은 양의 메모리 누수가 될수 있다. 공개 클래스 및 정적 내부 클래스는 이러한 문제를 피할 수 있다.
+>익명 내부 클래스는 스레드를 통제 불능으로 만드는 스레드 인스턴스에 대해 어떤 참조도 저장하지않는다. 저장된 스레드의 참조가 없으면 스레드는 응용 프로그램에 의해 영행을 받지 않는다.
+
+
+응용프로그램은 리스트에 스레드 참조를 저장하거나 이전에 시작된 스레드가 더 살아있지 않은 경우에만 새로운 스레드를 시작하는 로직을 적용할 수 있다.
+Thread가 동시 태스크의 수를 제한하게 하는 추가적인 로직이 필요할 수 있다.
+
+####7.2.2유지
+>스레드는 스레드나 스래드 하부의 객체를 시작하는 안드로이드 구성요소의 생명주기를 따르지 않는다. 일단 스레드가 시작되면 run 메서드가 끝나거나 전체 응용프로그램 프로세스가 종료될 때까지 실행된다. ----> 스레드 생명은 구성요소 수명보다 길어질 수 있다.
+
+- 액티비티 구성요소의 설정이 변경되면서 : 스레드 결과를 받는 수신자가 없더라도 구성요소에서 사용되는 결과를 산출 할 수 있다. 
+- 새로운 액티비티가 스레드의 결과를 활용할 데이터를 얻기 위해서 다시한번 스레드를 재시작 해야 한다.
+- 설정 변경 동안 스레드를 유지하고 새로운 Activity객체가 이전 Activity 객체에 의해 시작된 스레드를 처리하도록 하는 것이다.
+
+#####액티비티에서 스레드 유지
+
+`public object onRetainNonConfigrationInstance()`
+- 설정 변경은 현재 Activity객체가 파괴되고 다른 인스턴스로 대체 되도록 만든다. ( 설정 변경이 일어나기 전에 플랫폼에서 호출한다. )
+
+`public Object getLastNonConfigrationInstance`
+- 반환된 유지된 객체를 가져오기 위해 새로운 Activity 객체에서 호출한다.
+
+
+코드 일부
+```java
+ extends AppCompatActivity {
+
+    public static class MyThread extends Thread {
+        private ThreadRetainActivity mActivity;
+
+        public MyThread(ThreadRetainActivity activity) {
+            mActivity = activity;
+        }
+
+        private void attach(ThreadRetainActivity activity) {
+            mActivity = activity;
+        }
+
+        @Override
+        public void run() {
+            final String text = getTextFromNetwork();
+            mActivity.setTitle(text);
+        }
+
+        private String getTextFromNetwork() {
+            //네트워크 동작 시뮬레이션
+            SystemClock.sleep(5000);
+            return "text form network";
+        }
+    }
+
+    private static MyThread t;
+    private TextView textview;
+
+    @Override
+    public void onCreate(Bundle savedInstatnceState) {
+        super.onCreate(savedInstatnceState);
+
+    }
+}
+
+```
+
+#####프래그먼트에서 스레드 유지
+> 프래그먼트는 일반적으로 약티비티 안에서 사용자 인터페이스의 일부를 구현한다.
+> 프래그먼트 사용시 인스턴스 유지가 더쉽고, thread인스턴스를 유지하는 책임을 약티비티에서 프래그먼트로 옮길 수 있다
+> UI요소를 포함하지 않고 단지 스레드의 유지를 위해 액티비티에 추가될 수 있다.
+
+- 프래그먼트에서 스레드나 다른 상태를 유지하는 방법은 => Fragment.onCreate() 에서 SetRetainInstance(true)를 호출하는것.
+- 
+
+java.lang.Thread객체는 안드로이드의 기본 스레드 실행 환경에서의 가장 기본적인 추상화를 표현한다.
+시작된 모든 작업자 스레드는 네이티브 리눅스 스레드에 해당한다. 
+인터럽트는 외부에서 스레드를 종료할 수 있는 유일한 명시적 방법이고, 응용프로그램은 메모리 누수의 위험과 크기를 줄이고, 
+스레드의 시작과 종료를 제어하기 위해 스레드를 관리한다.
 
