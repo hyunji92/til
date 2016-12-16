@@ -212,7 +212,7 @@ class ExecutionServer {
 JVM 은 모든 스레드가 종료하지 않으면 자신도 종료하지 않고 대기하므로 Executor를 제대로 종료시켜야 JVM도 종료됨
 Executor는 정상적이건간에 종료절차를 밟아야할 필요가 있다.
 
-종료까지 고려하게 바까보자
+종료까지 고려하게 바까보자 / 페이지 182
 
 ```java
 class ExecutionServer {
@@ -249,6 +249,16 @@ class ExecutionServer {
 }
 ```
 
+ExecutorService는 세 가지의 Status를 갖는데 <Running, Shutting Down, Terminated>이다.
+
+- shutdown()
+메소드가 불리면 곧바로 종료 절차를 진행하게되고 isShutdown()은 true가 된다. 이때에는 더이상의 추가 작업은 거부되지만, 이미 등록된 작업(대기중인 작업 포함)은 모두 마친다.
+모든 작업이 종료되면 ExecutorService는 isTerminated()의 리턴값으로 true를 가진다.
+- shutdownNow()
+메소드가 불리면 종료 절차를 진행하게 되는데 대기중인 작업은 취소시키고, 이미 running인 작업도 가능하면 중단시킨다
+- awaitTermination()
+ExecutorService가 terminated 상태로 갈때까지 기다린다. (물론 isTerminated()를 폴링할 수도 있다)
+
 ####9.2.2 커스텀 스레드 풀
 >Executors의 미리 정의된 스레드 풀 유형은 ThreadPoolExecutor클래스에 기반하는데 , 이 클래스는 상세한 스레드 풀의 동작을 만드는데 직접 사용될 수 있다. 
 
@@ -279,6 +289,27 @@ ThreadPoolExecutor executor = new ThreadPoolExecutor (
 
 ####9.2.3 스레드 풀 설계
 > 스레드 풀을 설정하기 위해서는 필요한 것보다 더 많은 메모리를 사용하지 않고 하드웨어에 의해 허용되는 가장 높은 속도록 작업을 처리하는 스레드 풀을 생성하는것이다.
+> 유휴스레드는 이전 스레드를 소멸하고 새로운 스레드를 생성하는 오베헤드를 제거하여 큐안에 추가된 새로운 태스크를 실행하는데 사용
+
+띠리서, 유휴시간을 길게 하면 메모리 사용은 더 많이ㅏ지지만 약간의 성능향상을 얻을 수 있다.
+
+일반적으로 제한된 작업 스레드 수를 가진 안드로이드 응용 프로그램의 경우, 유휴 시간을 미세 조정 하여 얻는 성능 이득은 작고 거의 필요하지 않다.
+
+
+
+#####제한 또는 무제한 태스크 큐
+> 스레드 풀은 일반적으로 제한 또는 무제한 태스크 큐와 함께 사용된다. 
+> 무제한 큐는 무한 증가 할 수 있어서 메모리가 고갈 될 수 있다.
+> 제한 큐의 자원 소비는 더 잘 관리될 수 있다.
+> 한편 제한 큐는 그 크기와 포화 정책을 모두 준비 해야한다.
+> 포화정책이란 거부된 태스크를 생산자가 어떻게 처리할지를 뜻한다.
+
+- 제한 큐
+	1. ArrayBlockingQueue
+	2. priorityBlockingQueue
+
+- 무제한 큐
+	1. LinkedBlockingQueue
 
 
 #####크기
@@ -290,3 +321,16 @@ ThreadPoolExecutor executor = new ThreadPoolExecutor (
 고정된 크기의 스레드 풀로 정의하지 않으면 스레드 수는 스레드 풀의 생명주기 동안 변화한다.
 이런 역동성은 `핵심 스레드 : core Thread`  와 `생존 유지 시간 : keepAliveTime`에 의해 만들어진다.
 스레드 풀은 큐에 들어간 태스ㄹ크를 기다리면 풀이 사라있도록 유지하는 핵심 스레드 집합을 정의한다.
+
+#####스레드 설정
+> ThreadPoolExecutor 는 작업자 스레드 개수와 풀의 생성과 종료, 모든스레드의 속성 정리
+> 작업자스레드는 ThreadFactory 인터페이스의 구현을 통해 설정된다.
+> 스레드 풀은 우선순위, 이름, 예외 핸들러와 같은 작업자스레드의 속석을 정의할 수 있는것
+
+```text
+*Note
+런타임 : ART 는 Android RunTime 의 약자, 앱을 설치할 때 완전히 네이티브 앱으로 변환하여 설치한다. 이 과정을 Ahead-Of-Time( AOT ) 컴파일이라 한다.
+ART 를 사용하면, 새로운 가상머신(Dalvik)을 매번 생성하고, 인터프리트 된 코드 실행하는 시간을 제거하여 performance 가 엄청 향상될 수 있다.
+다시 말해 VM 자체가 필요없어, iOS 와 비슷한 성능의 이점을 얻을 수 있다는 것
+```
+
