@@ -98,7 +98,7 @@ calss SingleThreadServer {
 2. 자원관리 : 프로세서보다 많은 수의 스레드가 만들어진다면, 프로세서의 수를 초과하는 스레드는 대기상태에 머물게 되는데, 대기상태에 있는 스레드가 많을 수록 메모리를 많이 차지하게된다.
 3. 안정성 : 스레드 무한정 생성 불가, Out of Memory 에러 발생.
 
-###Executor FrameWork
+##Executor FrameWork
 - 매우 간단한 구조의 인터페이스, 다양한 종류의 작업 스케줄링을 지원하는 강력한 프레임워크의 근간
 ```java
 public interface Executor {
@@ -322,7 +322,7 @@ ThreadPoolExecutor executor = new ThreadPoolExecutor (
 이런 역동성은 `핵심 스레드 : core Thread`  와 `생존 유지 시간 : keepAliveTime`에 의해 만들어진다.
 스레드 풀은 큐에 들어간 태스ㄹ크를 기다리면 풀이 사라있도록 유지하는 핵심 스레드 집합을 정의한다.
 
-#####스레드 설정
+#####스레드 설정 ㅍㅔ이지 186
 > ThreadPoolExecutor 는 작업자 스레드 개수와 풀의 생성과 종료, 모든스레드의 속성 정리
 > 작업자스레드는 ThreadFactory 인터페이스의 구현을 통해 설정된다.
 > 스레드 풀은 우선순위, 이름, 예외 핸들러와 같은 작업자스레드의 속석을 정의할 수 있는것
