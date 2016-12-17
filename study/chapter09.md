@@ -203,9 +203,9 @@ class ExecutionServer {
     생성동작에 걸리는 시간적 오버헤드까지 없어지므로 반응속도 또한 향상된다.
 
 - 아래의 스레드유형은 Executors팩토리 클래스에서 만들어진 미리 정의된 스레드 풀 유형을 이다.
-    - `newFixedThreadPool` `고정 크기` 처리할 작업이 등록되면 실제 작업할 스레드를 하나씩 생성, 스레드의 수는 제한되어있다.
-    - `newCachedThreadPool` `동적 크기` 큐에 있는 작업의 수보다 생성이 되어있는 스레드수가 많으면 최과 범위에있는 스레드 종료.
-    - `newSingleThreadPool` `싱글 스레드 실행자`  단일 스레드 동작, Exception발생으로 비정상적인 종료가 된다면 스레드 다시 생성
+    - `newFixedThreadPool` **고정 크기** ,처리할 작업이 등록되면 실제 작업할 스레드를 하나씩 생성, 스레드의 수는 제한되어있다.
+    - `newCachedThreadPool` **동적 크기** ,큐에 있는 작업의 수보다 생성이 되어있는 스레드수가 많으면 최과 범위에있는 스레드 종료.
+    - `newSingleThreadPool` **싱글 스레드 실행자** ,단일 스레드 동작, Exception발생으로 비정상적인 종료가 된다면 스레드 다시 생성
     - `newScheduledThreadPool` 일정시간 이후에 실행하거나 반복실행을 위해서 사용한다.스레드 수 고정
 
 ####스레드의 종료
@@ -217,7 +217,7 @@ Executor는 정상적이건간에 종료절차를 밟아야할 필요가 있다.
 ```java
 class ExecutionServer {
 	//private static final Executor executor =  Executors.newFixedThreadpool(100);
-    private static final Executor Service mExecutorService = Executors.newFixedThreadPool(100);
+    private static final ExecutorService mExecutorService = Executors.newFixedThreadPool(100);
 
     public static void main (String[] args) throw IOException {
     	ServerSocker socker = new ServerSocket(80);
@@ -230,9 +230,9 @@ class ExecutionServer {
                 	handlerRequest(connection);
                     }
                  }
-            	executor.excute(run);
+            	mExecutorService.excute(run);
             } catch (RejectedExecutionException e) {
-            	if(!exec.isShutdown()) {
+            	if(!mExecutorService.isShutdown()) {
                 	Log.e("ExecutorService", "task rejected!");
                 }
             }
@@ -334,3 +334,21 @@ ART 를 사용하면, 새로운 가상머신(Dalvik)을 매번 생성하고, 인
 다시 말해 VM 자체가 필요없어, iOS 와 비슷한 성능의 이점을 얻을 수 있다는 것
 ```
 
+###9.3 태스크 관리
+> 태스크란 어떤 시점에 어디에선가 실행되어야 하는작업 단위
+
+- Callable
+Runnable의 run()메소드는 실행이 끝난 다음 뭔가를 리턴해 줄 수가 없다. 만약에 결과를 받고싶다면 클래스의 멤버변수에 할당하는 것이 일반적이다.
+그런데 결과를 받아올 때까지 시간이 걸리는 작업이 꽤 많다. 이를테면 서버에서 이미지를 받아오는 것.
+이와같이 오랜 작업시간 끝에 결과를 받아오는 작업은 Runnable보다는 Callable를 사용하는 것이 좋다. 
+call()메소드를 실행하면 결과값을 돌려받을 수 있다.
+게다가 Exception도 발생시킬 수 있다.
+
+- Future
+Future를 통하여 Executor의 특정 작업이 정상종료되었는지 취소되었는지등의 정보를 확인할 수 있다.
+get()메소드를 통해 결과를 가져올 수 있으며, 결과가 나올 때까지 기다릴 수도 있다.
+get()메소드의 결과는 Executor의 상태에 따라 다르다.
+작업 정상 완료 : 결과값
+작업 비정상 종료 : ExecutionException (원래 비정상종료 원인이 Exception인 경우 포함됨)
+작업 전 또는 작업중 : 대기후 결과값
+작업 취소 : CancellationException
