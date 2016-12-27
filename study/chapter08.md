@@ -45,4 +45,12 @@ mHandler = new Handler(handlerThread.getLooper()){
     	mHandler.removeCallbacksAndMessages(null);
     }
 
-4. 종료 : 
+4. 종료 : 핸들러 스레드는 메서드 quit 또는 quitSafely를 사용하면 스레드가 종요되기 전에 전달 경계를 넘은 메세지가 처리되는 것을 보장할 수 있다.
+	7장 '인터럽트'에 나오듯 현재 실행 중인 메세지를 취소하기 위해 핸들러 스레드로 인터럽트를 보낼 수 있다.
+
+``` java
+public void stopHandlerThread(HandlerThread andlerThread) {
+	handlerThread.quit();
+    handlerThread.interrupy();
+}
+```
