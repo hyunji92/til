@@ -247,3 +247,97 @@ broadcastRecdiver는 UI스레드에서 호출되는 onReceiver콜백으로 인�
 - 브로드 캐스트 리시버에서 시작 요청 
 - 백그라운드 실행동안 새로운 구성요소를 활성화
 - onReceiver가 종료해도 문제가 되지 않는다.
+
+
+
+*주기적인 긴 작업*
+
+응용프로그램이 자신이 실행되지 않을 때에도 주기적인 태스크를 시작해야 할때 , AlarmManager시스템 서비스 활용. 
+
+
+
+*Activity 에서 broadcastReceiver와 AlarmManager설정*
+
+```java
+public class AlarmBroadcastActivity extends Activity {
+
+    private static final long ONE_HOUR = 60 * 60 *1000;
+
+    AlarmManager am;
+    AlarmReceiver alarmReceiver;
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        alarmReceiver = new AlarmReceiver();
+        registerReceiver(alarmReceiver, new IntentFilter("com.eat.alarmreceiver"));//AlarmManager 인텐트 받을 브로드캐스트 리시버 등록
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, new Intent("com.eat.alarmreceiver"), PendingIntent.FLAG_UPDATE_CURRENT);
+        am = (AlarmManager) (this.getSystemService(Context.ALARM_SERVICE));
+        am.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + ONE_HOUR , ONE_HOUR, pendingIntent);
+        //AlarmManager 매시간 응용프로그램을 시작하도록 설정한다./
+
+        /**AlarmManager 는 매시간 시작되며, 네트워크 작업을 처리할 수 있는 인텐트 서비스로 호출 리다이렉트*/
+    }
+
+
+
+    private class AlarmReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            context.startService(new Intent(context, NetworkCheckIntentService.class));
+        }
+    }
+}
+```
+
+
+
+*NetworkCheckIntentService.java*
+
+```java
+public class NetworkCheckIntentService extends IntentService {
+
+    public NetworkCheckIntentService() {
+        super("NetworkCheckerThread");
+    }
+
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        if (isNewNetWorkDataAvailable()){
+            addStatusBarNotification();
+        }
+    }
+
+    private void addStatusBarNotification() {
+        Notification.Builder mBuilder =  new Notification.Builder(this)
+                //.setSmallIcon()
+                .setContentTitle("new title")
+                .setContentText("new data can be download ");
+
+        NotificationManager mNotificationManager =  (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(1, mBuilder.build());
+    }
+
+    private boolean isNewNetWorkDataAvailable() {
+        // 네트워크 요청 코드 생략됨. 더미값을 반환한다.
+        return  true;
+    }
+}
+```
+
+### 12.3 IntentService 와 Service
+
+ IntentService 는 동일한 선언, 프로세스 순위에 대한 동일한 영향, 클라이언트를 위한 동일 한 시작 요청 절차 등의 특성 상속.
+
+*IntentService를 사용하는 응용프로그램이 onHandleIntent 를 구현하도록, 서비스의 의미를 처리하는 시작요청을 구현한다. 따라서, IntentService의 사용은 일반적으로 사용되는 태스크 제어 서비스와일치, 비동기 실행과 구성요소 생명주기 관리에 대한 자원을 내장*
+
+1. 클라이언트에 의한제어
+   - 구성요소의 생명주기가 다른 구성요소에 의해 제어되길 원한다면 사용자 제어서비스를 쓰면된다.
+2. 동시적인 태스크 실행
+   - 동시에 태스크를 실행하려면 서비스에서 여러 스레드 시작
+3. 순차적이고 재배열 가능한 태스크
+   - 태스크 큐를 우회하기 위해 태스크가 우선시 될 수 있다. 예로 음악서비스는 일반적으로 정지요청 우선시 , 큐에서 다른 태스크에 앞서 실행될 수 있도록하기위해 서비스가 필요한것.
+
+
+
