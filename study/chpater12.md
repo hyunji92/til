@@ -111,7 +111,139 @@ HTTP프로토콜은 GET, POST, PUT, DELETE 요청의 유형을 이용하여 네�
 
 ```java
 public Class WebServiceActivity extends Activity {
+  private final static String getUrl ="";
+  private final static String postUrl="";
   
+  private ResultReceiver mReceiver;
+  
+  public WebServiceActivity() {
+    mReceiver = new ResultReceiver(new Handler()) {
+      // 작업 결과 반환될 수 있도록 IntentServie로 전달되는 ResultReceiver를 생성한다.
+      @Override
+      protected void onReceiverResult(int resultCode, Bundle resultData) {
+        int httpStatus = resultCode;
+        Stirng 	jsonResult = null;
+        if(httpStatus == 200) {
+          //ok
+          if(resultData != null) {
+            jsonResult =  resultData.getString(WebService.BUNDLE_KEY_REQUEST_RESULT);
+            //생략됨 응답 처리
+          }
+        }
+        else {
+          // 생략됨 에러를 처리
+        }
+      }
+    } ;
+  }
+  private void doPost(){
+    // JSON형식의 콘텐츠로 POST요청을 발행한다.
+    Intent intent = new Intent(this, WebService.class);
+    intent.setData(Uri.parse(postUrl));
+    intent.putExtra(WebService.INTENT_KEY_REQUEST_TYPE, WebService.POST);
+    intent.putExtra(WebService.INTENT_KEY_JSON, "{\"foo\":\"bar\"}");
+    intent.putExtra(WebService.INTENT_KEY_RECEIVER, mReceiver);
+    startService(intent);
+  }
+  
+  private void doGet(){
+    //GET 요청을 발생한다.
+    Intent intent = new Intent(this, WebService.class);
+    intent.setData(Uri.Parse(getUrl));
+    intent.putExtra(WebService.INTENT_KEY_REQUEST_TYPE, WebService.POST);
+    intent.putExtra(WebService.INTENT_KEY_RECEIVER, mReceiver);
+    
+    startService(intent);
+  }
 }
 ```
 
+*IntentService 는 onHandleIntent 에서 요청을 받고 순차적으로 처리한다. WebServiceActivity에서 전달된 데이터에 따라 `요청유형`, `URL`, `ResultReceiver`, 전송될 데이터 가 전달된다.*
+
+```java
+public class WebService extends IntentService {
+  private static final String TAG = WebService.class.getName();
+  public static final int GET = 1;
+  public static final int POST = 2;
+  
+  public static final String INTENT_KEY_PEQUEST_TYPE = "com.eat.INTENT_KEY_REQUEST_TYPE";
+  public static final String INTENT_KEY_JSON = "com.eat.INTENT_KEY_REQUEST_TYPE";
+    public static final String INTENT_KEY_RECEIVER = "com.eat.INTENT_KEY_REQUEST_TYPE";
+    public static final String BUNDLE_KEY_REQUEST_RESULT = "com.eat.INTENT_KEY_REQUEST_TYPE";
+  
+  public WebService(){
+    super(TAG);
+  }
+  
+  @Override
+  protected void onHandleIntent(Intent intent) {
+    Uri uri =  intent.getData();
+    // 인텐트에서 필요한 data를 가져온다.
+    int requestType = intent.getIntExtra(INTENT_KEY_REQUEST_TYPE, 0);
+    Stting json = (String) intent.getSerializableExtra(INTENT_KEY_JSON);
+    ResultReceiver receiver =  intent.getParcelableExtra(Intent_KEY_RECEIVER);
+    
+   try {
+            HttpRequestBase request = null;
+            switch (requestType){
+                // 인텐트 데이터에 따라 요청 유형을 만든다
+                case GET:
+                    request = new HttpGet();
+                    // 요청 설정 생략
+                    break;
+
+                case POST:
+                    request = new HttpPost();
+                    if(json !=  null){
+                        ((HttpPost)request).setEntity(new StringEntity(json));
+                    }
+                    break;
+            }
+
+            if(request != null){
+                request.setURI(new URI(uri.toString()));
+                HttpResponse response = doRequest(request);// 네트워트 요청을 수행한다
+                HttpEntity httpEntity = response.getStatusLine();
+                int statuscode = responseStatus != null ? responseStattus.getStatusLine() : 0;
+
+                if (httpEntity != null){
+                    Bundle resultBundle =  new Bundle();
+                    resultBundle.putString(BUNDLE_KEY_REQUEST_RESULT, EntityUtils.toString(httpEntity));
+                    receiver.send(statuscode, resultBundle);//WebServiceActivity 에 성공한 결과를 반환한다.
+                }else {
+                    receiver.send(statuscode, null);
+                }
+            }else {
+                receiver.send(0, null);
+            }
+
+        } catch (IOException e) {
+
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private HttpResponse doRequest(HttpRequestBase request) throws IOException{
+        HttpClient client =  new DefaultHttpClient();
+        //HttpClient 설정 생략
+        return  client.execute(request);
+    }
+}
+```
+
+ #### 12.2.2 broadcast Receiver 에서 비동기 실행
+
+broadcastReceiver 는 응용프로그램의 짐입점. 프로세스에서 시작되는 첫 번째 안드로이드 구성요소가 될 수 있다.
+
+broadcastRecdiver는 UI스레드에서 호출되는 onReceiver콜백으로 인텐트를 보낸다. 따라서 오래 걸리는 작업이 실행되어야 하는 경우 비동기 실행이 필요하다. 따라서 오래 걸리는 작업이 실행되어야 하는 경우 비동기 실행이 필요하다.
+
+
+
+*but, broadcastRece iver 구성요소는 onReceiver의 실행동안에만 활성화된다. 따라서 BroadcastReceiver가 진입점이고 프로세스가 빈상태라면 태스크가 끝나기 전에 런타임이 프로세스를 죽일 수 있어 구성요소가 소멸한 수 비동기 태스크는 실행중으로 남아 있을 수 있다.*
+
+빈프로세스 문제를 회피하기 위해 브로드캐스트 리시버에서의 비동기 실행을 위한 가장 이상적인 후보는 인텐트 서비스인것. 
+
+- 브로드 캐스트 리시버에서 시작 요청 
+- 백그라운드 실행동안 새로운 구성요소를 활성화
+- onReceiver가 종료해도 문제가 되지 않는다.
