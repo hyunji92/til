@@ -75,6 +75,7 @@ class Car {
 
 
     {
+      
 //        color = "ffffff";
 //        gearType = "eeeeee";
     }
@@ -150,3 +151,102 @@ class Post {
 `this` - 인스턴스 자신을 가리키는 참조변수, 인스턴스의 주소가 저장되어져있고 모든 인스턴스 메서드에서 지역변수로 숨겨진채로 존재한다
 
 `this()`  - this(파라미터), 생성자와 같은클래스의 다른 생성자를 호출할때 사용한다.
+
+
+
+
+
+#### 6.3 초기화 블럭 ( initialization block )
+
+> 클래스 초기화 블럭 - 클래스 변수의 복잡한 초기화에 사용된다.
+>
+> 인스턴스 초기화 블럭 - 인스턴스 변수의 복잡한 초기화에 사용된다.
+
+
+
+```java
+class Car {
+    String color = "";
+    String gearType;
+    int door;
+
+    public String getColor() {
+        return color;
+    }
+
+
+    {
+      /*인스턴스 초기화 블럭*/
+      //생성자와 같이 인스턴스를 생성할 때 마다 수행
+//        color = "ffffff";
+//        gearType = "eeeeee";
+    }
+
+    static {
+      /*클래스 초기화 블럭*/   
+      // 클래스가 메모리에 처음 로딩될 때 한번만 수행
+    }
+```
+
+
+
+#### 6.4 멤버변수의 초기화 시기와 순서
+
+```java
+class Product {
+    static int count =  0;
+    int serialNo;
+    {
+        ++count;
+        serialNo = count;
+    }
+    public Product() {}
+
+  class ProductTest {
+    public static void (String args[]){
+      
+      Product product1 = new Product();
+        Product product2 = new Product();
+        Product product3 = new Product();
+
+        System.out.println("제품 번호 1 : " + product1.serialNo);
+        System.out.println("제품 번호 2 : " + product2.serialNo);
+        System.out.println("제품 번호 3 : " + product3.serialNo);
+      
+    }
+  }
+}
+```
+
+!!!! SQL디비 PK점차적으로 increments 되는것처럼 저렇게 `++count`해놓으면 일련번호가 증가하여 보인다.
+
+생성자가 하나 밖에 없기 때문에 인스턴스 블럭 대신, Product클래스의 생성자를 사용해도 결과는 같다.
+
+
+
+#### *응용 예제*
+
+```java
+class Document {
+    static int count = 0;
+    String name;
+    
+    Document(){
+        this("제목 없음" + ++count);
+    }
+    
+    Document(String name) {
+        this.name = name;
+        System.out.println("문서" + this.name +  "가 생성되었음 ");
+    }
+    class DcumentTest {
+      public static void (Stirng args[]) {}
+        Document document1 = new Document();
+        Document document2 = new Document("자바.txt");
+        Document document3 = new Document();
+        Document document4 = new Document();
+    }
+  }
+}
+```
+
