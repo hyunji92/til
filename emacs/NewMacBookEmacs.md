@@ -33,3 +33,26 @@ M-[char]
 이렇단다. C는 컨트롤키이고 메타키가 M인데 메타키는 키보드의 Esc키와 Alt키를 의미한다고 한다.
 
 5. 참고한 블로그에서는 터미널에서 `emacs -nw` 로 실행하시는군. emacs는 `C-x C-c`로 종료 가능;
+
+
+
+# Emacs 용어
+
+**버퍼**
+
+기본적인 편집의 장소 ( 파일 - 버퍼 - emacs ) , emacs 가 편집할 수 있는 공간. 파일은 버퍼라는 형태로 emacs안에서 처리된다.
+
+Emacs에서는 관행적으로 파일로 매핑되어 있지 않는 특별한 버퍼이름 앞에 *를 붙여 관리 한다.  `C-x b:버퍼변경`을 입력하려면,  `C-x b`
+
+**윈도우**
+
+버퍼의 출력. (버퍼 <-> 윈도우 <-> 사용자 ) 하나의 윈도우는 하나의 버퍼를 가질 수 있다.
+
+# Spacemacs  (Vim mode)
+
+spacemacs에서 파일이나 텍스트를 검색할때  -  `ctrl-j` to go down, `ctrl-k` to go up, and page up/down
+
+Insert 모드 - `i` or `a` ( insert after the cursor )
+
+
+
