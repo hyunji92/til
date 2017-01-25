@@ -54,5 +54,3 @@ spacemacs에서 파일이나 텍스트를 검색할때  -  `ctrl-j` to go down
 
 Insert 모드 - `i` or `a` ( insert after the cursor )
 
-
-
