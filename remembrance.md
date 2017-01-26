@@ -72,7 +72,7 @@
 
 2017년도 힘내서 나아가 볼께요.
 
-![goblin](/Users/jeonghyeonji/til/goblin.png)
+![goblin](/goblin.png)
 
 
 
