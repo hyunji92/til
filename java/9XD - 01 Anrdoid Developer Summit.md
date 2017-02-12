@@ -21,9 +21,9 @@ api호출할때 Rx를 많이 쓴다.
 
 비동기, 이벤트 기반의 프로그램들을 Observable sequences 을 사용하여 프로그래밍 할 수 있다.
 
-- 안드로이드에서 사용할 때는 - Callback function -> hell
+- 안드로이드에서 사용할 때는 - Callback function -> hell!!!!!!
 - functional operator들을 사용하여 reactive programming
-- Rx 는 Event -based로 프로그래밍 하는것
+- Rx 는 Event-based로 프로그래밍 하는것
 - Ansync해결 방법 -> callback, Promise, Async/await, generator function, Observable
 
 ## Rx 사용할 수 있는 기능
@@ -47,7 +47,7 @@ val observer1 = request1()
 val observer2 = request2()
   
   Observable.amb(observer1, observer2)
-  			.subscribe(::printin)
+  			.subscribe(::println)
 ```
 
 Immutable state를 사용하고,  Flexible한 구조로 해결가능.
@@ -55,11 +55,11 @@ Immutable state를 사용하고,  Flexible한 구조로 해결가능.
 1. 유연하게 설계를 할 수 있는 Push Model?
 2. 그로인해 가능해지는 Composing Observable ?
 
-## 02 Android Image Lib
+## 02 Android Image Library
 
 > Image lib 사용하는 이유
 
-- 빛트맵 이미지 크기가VM메모리 한걔ㅖ를 초과
+- 비트맵 이미지 크기가 VM메모리 한계를 초과
 - 프로세스당 메모리 크기를 확인하여 넣어야함
 - GC후에도 충분한 메모리 확보할 수 없는 경우 OOM
 
@@ -69,13 +69,13 @@ Immutable state를 사용하고,  Flexible한 구조로 해결가능.
   - 이미지 품질 줄이기
   - 스레드 관리하기
   - 이미지 캐시와 view재활용
-  - bitmap을 야ㅐㄱ티비티 생명주기에 맞춰서 로딩하고 해재하기
+  - bitmap을 액티비티 생명주기에 맞춰서 로딩하고 해재하기
   - 다운 scaling - BitmapFactory.Options, 이미지 크기 조정은 같은 2배수 단위만 가능
 - 이미지 포맷 방식 변경
   - .jpeg 포맷을 사용하면 압축 비율이높고 이미지 크기가 작다
 - 대용량의 힙 메모리 확보
   - 메니페스트 largeHeap = true;
-  - 단점 : 처음부터 힙 메모리를 확보하는 것이 아니고 부족하게 되면 새로 대용량의 힙 메모리를 확보
+  - 단점 : 처음부터 힙 메모리를 확보하는 것이 아니고 부족하게 되면 새로 대용량의 힙 메모리를 확보.
   - 다른앱에서 사용할 수 있는 메로리가 부족하게 됨
 
 
@@ -101,5 +101,5 @@ Immutable state를 사용하고,  Flexible한 구조로 해결가능.
 - 이미지 로딩 우선 순위를 높임 - priority()로 우선 순위 높임
 - 이미지 캐시 효율적으로 관리하기 - 이미지 로딩 라이브러리 워크플로우
 
-Future Studio 사이트
+> 참고. - Future Studio 사이트
 
