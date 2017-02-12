@@ -101,5 +101,7 @@ Immutable state를 사용하고,  Flexible한 구조로 해결가능.
 - 이미지 로딩 우선 순위를 높임 - priority()로 우선 순위 높임
 - 이미지 캐시 효율적으로 관리하기 - 이미지 로딩 라이브러리 워크플로우
 
+
+
 > 참고. - Future Studio 사이트
 
