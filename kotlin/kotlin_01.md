@@ -143,3 +143,7 @@ class Constructor{
 }
 ```
 
+### 함수의 재정의
+
+ kotlin에서는 기본적으로 abstruct함수의 재정의가 불가능하다. `open`class 를 생성해 재정의가 가능한 형태의 함수가 생성된다. ( java 에서는 기본이 `open` , final 을 통해 함수 재정의를 막는다.)
+
