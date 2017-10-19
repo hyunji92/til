@@ -32,35 +32,35 @@
 2. - Notification Channels - set up category. / Priority 적용하기
 
 3. 1. - Top : Major ongoing - media session , navigation, foreground setcvice notifications may use setColozed()
+
       - Middle : people to people/ MessagingStyle notification then General
+
       - Bottom : min notification ( by the way )
 
-   2. Notification Channel - In O, apps must organize their notifications into channels 
+        ​
 
-   3. Notification Badges or Dots - 님이 안읽은 노티피케이션이 있음을 알려주고 기본적으로 닷이 뜨고 롱프레스 일떄 숏컷이 나옴 / 점을 찍거나 안찍도록 노티피케이션을 설정할 수있고, 색상은 바꿀 수 없고 , 바꾸려면 아이콘의 색상을 바꺼야함 (임의로 바뀜)
+4. Notification Badges or Dots - 님이 안읽은 노티피케이션이 있음을 알려주고 기본적으로 닷이 뜨고 롱프레스 일떄 숏컷이 나옴 / 점을 찍거나 안찍도록 노티피케이션을 설정할 수있고, 색상은 바꿀 수 없고 , 바꾸려면 아이콘의 색상을 바꺼야함 (임의로 바뀜)
 
-   4. Pinning Shortcut & widgets
+5. Pinning Shortcut & widgets
 
-   5. Picture in Picture
+6. Picture in Picture
 
-   6. Dwonloaderable Text Font
+7. Downloaderable Text Font
 
-   7. Chached Data -  StorageManager ( 캐시 사이즈 조절 , GC 막??)
+8. Chached Data -  StorageManager ( 캐시 사이즈 조절 , GC 막??)
 
-   8. Broadcast removal - boot complete !! 확인 ㄱ ㄱ 
+9. Broadcast removal - boot complete !! 확인 ㄱ ㄱ 
 
-   9. !!! Explicit broadcast are still allow
+10. !!! Explicit broadcast are still allow
 
-   10. 1. Notifications, alarms, app widget, etc , 패키지 지정해서 보내면 살아난다
+11. Background Service Limits - 백그라운드 서비스 1분정도 있다가 onStop()이 불리는 효과가 나옴.
 
-   11. Background Service Limits - 백그라운드 서비스 1분정도 있다가 onStop()이 불리는 효과가 나옴.
+12. 그때부터 백그라운드로 내려가면 서비스를 호출하여 살리고 싶어도 1분뒤에 서비스가 illegalstateException을 내뿜는다
 
-   12. 그때부터 백그라운드로 내려가면 서비스를 호출하여 살리고 싶어도 1분뒤에 서비스가 illegalstateException을 내뿜는다
+13. CTS test will be in place for android defined intents 
 
-   13. CTS test will be in place for android defined intents 
+14. Job intent service - compliant하게 O 이상에서는 job scheduler 에 신경안쓰고 쓸 수 있다.
 
-   14. Job intent service - compliant하게 O 이상에서는 job scheduler 에 신경안쓰고 쓸 수 있다.
+15. Sync Adapter , arlam manager , Alarms, Jobs and Services 
 
-   15. Sync Adapter , arlam manager , Alarms, Jobs and Services 
-
-   16. Location is powerful -배터리 소모량 많음
+16. Location is powerful - 배터리 소모량 많음
