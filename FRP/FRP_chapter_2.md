@@ -28,5 +28,39 @@ Stream:스트림 - 이벤트의 흐름을 표현
 **이벤트** - 프로그램의 한 부분에서 다른 부분으로 비동기적으로 메세지를 전달하는것 .
 **스트림** - 개별 이벤트 스트림. 다른 FRP 시스템에서는 `이벤트 스트림` , `관찰자` , `시그널` 이라고도 부른다.  어떤 이벤트가 스트림을 통해 전달 되는 경우 이를 일컬어 스트림을 내보낸다 한다.
 
+####java code
 
+```java
+ transactions.stream().filter((Transaction t) -> t.getYear() == 2011) // Stream<Transaction>
+                .map(t -> t.getTrader().getName()) // Stream<String>
+                .distinct()
+                .map(String::length) // Stream<Inteager>
+                .collect(Collectors.toList()); // Stream 을 List로 List<String>
+```
+
+
+
+#### kotlin code
+
+```kotlin
+transactions.stream().filter { t: Transaction -> t.year == 2011 } // Stream<Transaction>
+            .map { t -> t.trader.name } // Stream<String>
+            .distinct()
+            .map<Int>({ it.length }) // Stream<Inteager>
+            .toList()// Stream 을 List로 List<String>
+```
+
+비슷…. 다른점은 tolist 정도???
+
+
+
+#### kotlin code  `to list` 내부 코드
+
+```kotlin
+/**
+ * Returns a [List] containing all elements produced by this stream.
+ */
+@SinceKotlin("1.1")
+public fun <T> Stream<T>.toList(): List<T> = collect(Collectors.toList<T>())
+```
 
