@@ -1,6 +1,6 @@
-
-
 # DroidKaigi 2018
+
+## DAY1
 
 ### - kotlin basic 
 
@@ -305,9 +305,7 @@ dexing is now performed at the class level
 
 
 
-# DAY2
-
-
+##DAY2
 
 ### Kotlin Backstage
 
@@ -447,7 +445,7 @@ Action on google - create google project
 
 
 
-
+###// Things CodeLabs
 
 
 
