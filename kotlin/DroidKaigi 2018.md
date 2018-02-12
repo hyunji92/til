@@ -574,3 +574,41 @@ Action on google - create google project
     - Additional tooling
     - Performances
   - ​
+
+### Ready For AI? 
+
+> ml on mobile
+>
+> machine learning & tensorFlow
+>
+> Build your own model and optimize it
+
+- deep learning architecture 
+- 구글 플라이트 - 항공사가 얼마나 늦나아닌가 확인하는거?
+- AI detects a risk of my future kkkkk
+- 왜 텐서플로? 
+  -  andorid. - TensorFlow , library z
+  - train - ir - inference
+  - 텐서플로는 구글에 설명이 나와있어요
+  - tensorFlow only for machineLearning
+  - tensorFlow designed to run models in production
+  - tensorFlow mobile life = java client -> c API -> core ( C ++)
+  - tensorFlow mobile = tensorFlow java. + android 
+  - tensorFlow 추가하기 겁나쉬움 ( 안드로이드 )
+  - 디펜던시만 추가하면 된다. 그리고 계산 필요
+  - Variable
+  - Practically
+  - Training
+    - to enable the model to run on mobile
+    - For better performance
+      - Graph transformation
+    - Freeze : variable to constant
+      - train
+      - Checkpoint
+      - 성능을 좋게하려고 트레이닝을 시킨다?
+  - Inference
+  - Pre-trained models for Image classification
+  - model comparison
+  - mobilenet vs patchnet
+  - ​
+
