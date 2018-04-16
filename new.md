@@ -98,6 +98,20 @@ New Language : Kotlin
  . 
 
 ---
+new architecture 도입?
+---
+---
+기존 서비스의 코드를 수정하기는 힘들다.
+---
+---
+##추후 적용될<br> 모듈화의 방향으로 <br>New Tech를 적용하자!
+---
+프로덕션 앱에 적용시<br> 장점과 단점
+---
+---
+android Studio<br>패키지 캡쳐
+---
+---
 Critical pass
 ---
 ---
