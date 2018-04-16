@@ -63,3 +63,24 @@ null 이 의심스러울때는 nullable객체를 사용하고 가능한 null처�
 
 `!!` **은 객체가 null이 아닌것이 확실할때 사용해야 한다는 것을 기억하세요.**
 
+
+
+#### [Nothing](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html)
+
+- Javadoc 설명 : Nothing has no instances. You can use Nothing to represent “a value that never exists”: for example, if a function has the return type of Nothing, it means that it never returns (always throws an exception).
+- 함수가 명시적으로 return이 존재하지 않는다고 표기하기위한 class. 한마디로 종료되지 않는 blocking 함수 같은 것. 이것을 종료하려면 `exception` 만이 가능
+
+```
+  //일반적인 return 값이 없는 void 함수
+  fun noReturn() {
+    println("This method returns nothing.")
+  }
+
+  //return이 존재하지 않는다고 선언한 함수....
+  fun noReturn() : Nothing {
+    println("This method never returns.")
+  }
+
+```
+
+- 위의 Nothing 반환 함수는 Nothing type의 값을 return 하라고 error가 발생한다. 하지만 목적은 return을 안하는 것이기 때문에 선언 시에 생각했던 로직이 변경되었거나 처음 디자인과는 다르게 잘못 만들어진 부분이 있는 것이니 return Nothing 선언을 변경하거나 코드 수정을 해야한다. 얼마나 유용할지는 아직 코알못이라 잘 모르겠네.

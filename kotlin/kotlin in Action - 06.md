@@ -104,3 +104,23 @@ val intList: List<Int> =  nullableList.filterNotNull()
 intList.forEach(::print)
 ```
 
+#### [Unit](http://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+
+- Javadoc 설명 : The type with only one value: the Unit object. This type corresponds to the `void` type in Java.
+  - Java의 `void`와 같은 것이라고 함. 값 하나에대한 타입이 `void`? 역시 이런 것은 예제가 필요함.
+- [Unit-retruning functions](https://kotlinlang.org/docs/reference/functions.html#unit-returning-functions)
+
+```
+  fun printStr(value: String): Unit {
+    println(value)
+  }
+
+  // ^^^ vvv 위아래 동일한 것임.
+
+  fun printStr(value: String) {
+    println(value)
+  }
+
+```
+
+- 아마도 함수 레퍼런스를 선언할때 `void` 함수의 표현을 위해 `Unit` type이 사용되어 Java의 `void`와 동일하다고 하는 것 같다.
