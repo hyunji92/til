@@ -1,4 +1,21 @@
-# Null safety in Kotlin 
+# kotlin in Action 06
+
+###Null safety in Kotlin
+
+NULL 을 하기 위한 `?` 에는  type를 써야한다.
+
+```kotiln
+// null type error
+	var temp = null
+	temp = "ABC" 
+
+// 알맞은 사용법
+	var temp: string? = null
+	temp = "APC"
+```
+
+- kotlin 에서 기본적으로 선언된 변수는 모두 null이 허용되지 않는다.
+- null을 허용하려면 명시적으로 nullable하다는 것을 명시해 줘야한다
 
 ```java
 Testtext testtext = null;
@@ -34,8 +51,6 @@ a?.toLong()
 
 위의 코드는 변수가 null이 아닐 때만 실행됩니다. null이면 아무것도 수행되지 않는거!
 
-
-
 ```kotlin
 val myLong = a?.toLong() ?: 0L
 ```
@@ -65,22 +80,47 @@ null 이 의심스러울때는 nullable객체를 사용하고 가능한 null처�
 
 
 
-#### [Nothing](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-nothing.html)
+### if/else 대신 사용하기 `?:`Elvis Operator
 
-- Javadoc 설명 : Nothing has no instances. You can use Nothing to represent “a value that never exists”: for example, if a function has the return type of Nothing, it means that it never returns (always throws an exception).
-- 함수가 명시적으로 return이 존재하지 않는다고 표기하기위한 class. 한마디로 종료되지 않는 blocking 함수 같은 것. 이것을 종료하려면 `exception` 만이 가능
-
-```
-  //일반적인 return 값이 없는 void 함수
-  fun noReturn() {
-    println("This method returns nothing.")
-  }
-
-  //return이 존재하지 않는다고 선언한 함수....
-  fun noReturn() : Nothing {
-    println("This method never returns.")
-  }
-
+```kotiln
+var temp: String? = null ( "123" )
+val size = temp?.length ?:0 // temp가 null이 아니라면 
 ```
 
-- 위의 Nothing 반환 함수는 Nothing type의 값을 return 하라고 error가 발생한다. 하지만 목적은 return을 안하는 것이기 때문에 선언 시에 생각했던 로직이 변경되었거나 처음 디자인과는 다르게 잘못 만들어진 부분이 있는 것이니 return Nothing 선언을 변경하거나 코드 수정을 해야한다. 얼마나 유용할지는 아직 코알못이라 잘 모르겠네.
+### Elvis Operator를 사용하여 NullPointException
+
+```kotiln
+var temp: String? = null
+val size = temp?.length ?: throw NullPointException("temp is null")
+
+val size =  temp!!.length
+```
+
+### null filter
+
+```kotlin
+//null filter
+val intList: List<Int> =  nullableList.filterNotNull()
+intList.forEach(::print)
+```
+
+#### [Unit](http://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)
+
+- Javadoc 설명 : The type with only one value: the Unit object. This type corresponds to the `void` type in Java.
+  - Java의 `void`와 같은 것이라고 함. 값 하나에대한 타입이 `void`? 역시 이런 것은 예제가 필요함.
+- [Unit-retruning functions](https://kotlinlang.org/docs/reference/functions.html#unit-returning-functions)
+
+```
+  fun printStr(value: String): Unit {
+    println(value)
+  }
+
+  // ^^^ vvv 위아래 동일한 것임.
+
+  fun printStr(value: String) {
+    println(value)
+  }
+
+```
+
+- 아마도 함수 레퍼런스를 선언할때 `void` 함수의 표현을 위해 `Unit` type이 사용되어 Java의 `void`와 동일하다고 하는 것 같다.
