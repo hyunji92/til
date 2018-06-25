@@ -23,7 +23,7 @@ Asset Targeting
 - split apk - Format is same as an APK, same package name/ version code
 - Mutilple installed for a single app
 
-![20180625_133623_HDR](/Users/jeonghyeonji/til/20180625_133623_HDR.jpg)
+![20180625_133623_HDR](/20180625_133623_HDR.jpg)
 
 comming soon - config splites for , Grapjics
 
@@ -45,11 +45,11 @@ saving한 정도를 알 수 가있다., 사용자가 다운로드한 디바이�
 
 > Bundle tool 
 
-![20180625_133846_HDR](/Users/jeonghyeonji/til/20180625_133846_HDR.jpg)
+![20180625_133846_HDR](/20180625_133846_HDR.jpg)
 
-![20180625_133850](/Users/jeonghyeonji/til/20180625_133850.jpg)
+![20180625_133850](/20180625_133850.jpg)
 
-![20180625_133910](/Users/jeonghyeonji/til/20180625_133910.jpg)
+![20180625_133910](/20180625_133910.jpg)
 
 Testing with
 
@@ -61,7 +61,7 @@ GitHub.com/google/bundletool
 
 app -> core, add recipe Feature , vr viewer
 
-![20180625_134441](/Users/jeonghyeonji/til/20180625_134441.jpg)
+![20180625_134441](/20180625_134441.jpg)
 
 when to modularize? can users wait?
 
